@@ -16,6 +16,14 @@ from services.pdf_export import (
     create_pdf
 )
 
+st.set_page_config(
+    page_title="Autonomous Research Assistant Agent",
+    page_icon="🔬",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+
 st.title(
     "🔬 Autonomous Research Assistant Agent"
 )

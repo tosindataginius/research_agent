@@ -1,0 +1,18 @@
+User Query
+   ↓
+Planner
+   ↓
+Search + URLs
+   ↓
+Research Agent
+   ↓
+Citation Builder
+   ↓
+Writer
+   ↓
+PDF Export
+   ↓
+Download
+
+
+

@@ -1,0 +1,8 @@
+ddgs==9.14.4
+duckduckgo_search==8.1.1
+fastapi==0.137.2
+langchain_google_genai==4.2.5
+pydantic==2.13.4
+python-dotenv==1.2.2
+reportlab==4.5.1
+streamlit==1.57.0

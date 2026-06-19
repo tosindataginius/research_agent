@@ -1,4 +1,4 @@
-from services.llm import invoke_with_clean_errors
+from services.llm import invoke_with_clean_errors, llm
 
 def research(topic, sources):
     # Formats each source into a clean, compact block with clear delimiters

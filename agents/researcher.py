@@ -1,4 +1,4 @@
-from services.llm import llm
+from services.llm import invoke_with_clean_errors
 
 def research(topic, sources):
     # Formats each source into a clean, compact block with clear delimiters
@@ -28,7 +28,7 @@ Sources:
 
 Generate findings and include your inline citations:"""
 
-    result = llm.invoke(prompt)
+    result = invoke_with_clean_errors(llm, prompt)
     return result.content
 
 # Script to test the researcher function independently

@@ -1,5 +1,5 @@
 from datetime import datetime
-from services.llm import llm
+from services.llm import invoke_with_clean_errors, llm
 
 def write_report(topic, findings, citations):
     # Dynamically fetch the accurate current date from the host machine
@@ -40,7 +40,7 @@ You must strictly format the report using these five markdown headers. Do not in
 
 Begin the report directly with a title block containing the Topic and the provided Date ({current_date}):"""
 
-    result = llm.invoke(prompt)
+    result = invoke_with_clean_errors(llm, prompt)
     return result.content
 
 

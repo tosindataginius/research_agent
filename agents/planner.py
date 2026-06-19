@@ -1,5 +1,5 @@
 # Import the actual instance directly
-from services.llm import llm
+from services.llm import invoke_with_clean_errors, llm  
 
 def plan(topic):
     prompt = f"""You are an elite research strategist. Create a highly focused research plan.
@@ -12,7 +12,7 @@ Provide an actionable, step-by-step checklist of exactly what sub-topics must be
 3."""
 
     
-    result = llm.invoke(prompt) 
+    result = invoke_with_clean_errors(llm, prompt) 
     return result.content
 
 # Script to test the planner function independently

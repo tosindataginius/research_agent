@@ -19,8 +19,17 @@ Built using **Python, LangChain, Streamlit,** and powered by the **Google Gemini
 
 ## Wepapp Interface Snapshot
 
-<img width="1600" height="741" alt="1a" src="https://github.com/user-attachments/assets/87bcd7b3-664f-4496-80f8-d8b7a8b227e5" />
+<img width="1600" height="739" alt="1a" src="https://github.com/user-attachments/assets/9f18818a-4ef3-435f-93f0-525c7d3d59b0" />
 
-<img width="1600" height="741" alt="1b" src="https://github.com/user-attachments/assets/c035df86-1698-4387-82e2-504ea81ec632" />
+<img width="1600" height="743" alt="1b" src="https://github.com/user-attachments/assets/d3dbcd0a-f997-4b59-935d-da1f3a0e5b29" />
 
-<img width="1600" height="742" alt="1c" src="https://github.com/user-attachments/assets/8fa18e1f-fb58-4ade-b3d1-32e731461b62" />
+<img width="1600" height="739" alt="1c" src="https://github.com/user-attachments/assets/d1c5180b-7a36-4007-9cb5-73281fb5686a" />
+
+<img width="1600" height="744" alt="1d" src="https://github.com/user-attachments/assets/3daee99e-72bf-478e-8109-c2852c348694" />
+
+<img width="1600" height="741" alt="1e" src="https://github.com/user-attachments/assets/45acf3e1-683e-42b6-85ab-43bc9068605a" />
+
+
+
+
+

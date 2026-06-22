@@ -29,13 +29,16 @@ You must strictly format the report using these five markdown headers. Do not in
 ## 2 Findings
 [Flesh out detailed points here, incorporating the research text and keeping inline citation numbers]
 
-## 3 Recommendations
+## 3 Challenges
+[Identify and explain any challenges or limitations found in the research, citing sources as needed]
+
+## 4 Recommendations
 [Provide logical, actionable steps based directly on the findings]
 
-## 4 Conclusion
+## 5 Conclusion
 [Summarize the final outcomes and synthesis]
 
-## 5 References
+## 6 References
 [List all the source URLs and citations cleanly here]
 
 Begin the report directly with a title block containing the Topic and the provided Date ({current_date}):"""

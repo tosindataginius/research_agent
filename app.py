@@ -16,6 +16,7 @@ from services.pdf_export import (
     create_pdf
 )
 
+# 1. Page Configuration
 st.set_page_config(
     page_title="Autonomous Research Assistant Agent",
     page_icon="🔬",
@@ -23,104 +24,111 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+st.title("🔬 Autonomous Research Assistant Agent")
 
-st.title(
-    "🔬 Autonomous Research Assistant Agent"
-)
+# 2. Initialize Session State Variables
+if "research_plan" not in st.session_state:
+    st.session_state.research_plan = None
+if "sources" not in st.session_state:
+    st.session_state.sources = None
+if "report" not in st.session_state:
+    st.session_state.report = None
+if "pdf_path" not in st.session_state:
+    st.session_state.pdf_path = None
+if "current_topic" not in st.session_state:
+    st.session_state.current_topic = ""
 
+# 3. User Input
 topic = st.text_input(
-    "Research Topic"
+    "Research Topic", 
+    value=st.session_state.current_topic
 )
 
-if st.button(
-    "Start Research"
-):
+# 4. Trigger Execution Pipeline
+if st.button("Start Research"):
+    if not topic.strip():
+        st.warning("Please enter a valid research topic.")
+    else:
+        # Clear previous session state for a fresh run
+        st.session_state.research_plan = None
+        st.session_state.sources = None
+        st.session_state.report = None
+        st.session_state.pdf_path = None
+        st.session_state.current_topic = topic
 
-    with st.spinner(
-        "Planning..."
-    ):
+        try:
+            # Phase 1: Planning
+            with st.spinner("Planning..."):
+                st.session_state.research_plan = plan(topic)
 
-        research_plan = plan(
-            topic
-        )
+            # Phase 2: Gathering Sources
+            with st.spinner("Searching..."):
+                st.session_state.sources = gather_sources(topic)
 
-    st.subheader(
-        "Research Plan"
-    )
+            if not st.session_state.sources:
+                raise ValueError("No credible sources could be gathered for this topic.")
 
-    st.write(
-        research_plan
-    )
+            # Phase 3: Research & Extraction
+            with st.spinner("Researching..."):
+                citations = format_sources(st.session_state.sources)
+                findings = research(topic, st.session_state.sources)
 
-    with st.spinner(
-        "Searching..."
-    ):
+            # Phase 4: Report Synthesis
+            with st.spinner("Writing report..."):
+                st.session_state.report = write_report(
+                    topic, 
+                    findings, 
+                    citations
+                )
 
-        sources = gather_sources(
-            topic
-        )
+            # Phase 5: PDF Compilation
+            with st.spinner("Generating PDF export..."):
+                st.session_state.pdf_path = create_pdf(
+                    topic, 
+                    st.session_state.report
+                )
+                
+            st.success("Research pipeline completed successfully!")
 
-    citations = format_sources(
-        sources
-    )
+        except Exception as e:
+            st.error(f"An error occurred during the research process: {str(e)}")
+            # Reset state variables on failure to avoid rendering broken data
+            st.session_state.research_plan = None
+            st.session_state.sources = None
+            st.session_state.report = None
+            st.session_state.pdf_path = None
 
-    st.subheader(
-        "Sources"
-    )
+# 5. Persistent UI Rendering (Preserves UI layout after clicks/downloads)
+if st.session_state.research_plan:
+    st.subheader("Research Plan")
+    st.write(st.session_state.research_plan)
 
-    for s in sources:
+if st.session_state.sources:
+    st.subheader("Sources")
+    for s in st.session_state.sources:
+        title = s.get("title", "Untitled Source")
+        url = s.get("url", "#")
+        st.markdown(f"### {title}\n\n{url}")
 
-        st.markdown(
-            f"""
-### {s["title"]}
+if st.session_state.report:
+    st.subheader("Final Report")
+    st.markdown(st.session_state.report)
 
-{s["url"]}
-"""
-        )
+if st.session_state.pdf_path:
+    try:
+        with open(st.session_state.pdf_path, "rb") as f:
+            st.download_button(
+                label="📄 Download PDF",
+                data=f,
+                file_name="Research_Report.pdf",
+                mime="application/pdf"
+            )
+    except FileNotFoundError:
+        st.error("The generated PDF report file could not be found.")
+    except Exception as e:
+        st.error(f"Failed to load PDF download: {str(e)}")
 
-    with st.spinner(
-        "Researching..."
-    ):
-
-        findings = research(
-            topic,
-            sources
-        )
-
-    with st.spinner(
-        "Writing report..."
-    ):
-
-        report = write_report(
-            topic,
-            findings,
-            citations
-        )
-
-    st.subheader(
-        "Final Report"
-    )
-
-    st.markdown(
-        report
-    )
-
-    pdf = create_pdf(
-        topic,
-        report
-    )
-
-    with open(
-        pdf,
-        "rb"
-    ) as f:
-
-        st.download_button(
-            "📄 Download PDF",
-            f,
-            file_name="Research_Report.pdf",
-            mime="application/pdf"
-        )
+# 6. Sidebar Credentials
 
 with st.sidebar:
     st.markdown("Developed by Oluwasegun Oluwatosin (tosindataginius)")
